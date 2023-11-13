@@ -151,30 +151,28 @@ const LoginPage = () => {
                 </div>
                 <div className="p-4 relative shadow-lg shadow-slate-700 rounded-xl mb-9 hover:bg-cyan-500 hover:bg-opacity-20 hover:border">
                   <label htmlFor="password" className="relative">
-                    <span
-                      className="text-white block font-semibold mb-2
-                    after:content-['*']
-                    after:ml-1
-                    after:text-pink-500"
-                    >
+                    <span className="text-white block font-semibold mb-2">
                       Password
                     </span>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      className="py-2 lg:py-[10px] px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
-                focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
-                      value={password}
-                      onChange={(event) => setPassword(event.target.value)}
-                      required
-                    />
-                    <button
-                      type="button"
-                      className="absolute top-2 right-3 text-slate-300"
-                      onClick={togglePasswordVisibility}
-                    >
-                      {showPassword ? <FaEye /> : <FaEyeSlash />}
-                    </button>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        className="py-2 lg:py-[10px] px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
+                  focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500
+                  invalid:text-pink-700 invalid:focus:ring-pink-700 invalid:focus:border-pink-700 peer"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute inset-y-0 right-0 px-2 py-1.5 mt-1.5"
+                      >
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                    </div>
                   </label>
                 </div>
                 <div className="flex flex-col items-center mt-6">
