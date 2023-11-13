@@ -5,6 +5,7 @@ import { BiLogInCircle } from "react-icons/bi";
 import GoogleLogin from "../components/GoogleLogin";
 import { login } from "../redux/actions/authActions";
 import Slider from "react-slick";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import captenAmerica from "../assets/captain-america_449504.png";
 import spiderMan from "../assets/spiderman_1090806.png";
@@ -19,8 +20,12 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onLogin = async (event) => {
     event.preventDefault();
@@ -63,7 +68,7 @@ const LoginPage = () => {
                                                     lg:absolute lg:top-[299px] lg:left-[984px]"
             ></div>
           )}
-          
+
           {/* card movie */}
           <div className="w-80 h-[900px] lg:w-[700px] lg:h-screen rounded-e-[60px] bg-gradient-to-r from-cyan-800 bg-opacity-50 absolute left-0 top-0">
             <div className="flex flex-col lg:mt-48 lg:w-96 lg:h-72 lg:p-12 lg:rounded-2xl lg:ml-40 lg:bg-slate-900 lg:bg-opacity-50 lg:flex lg:flex-col lg:shadow-2xl">
@@ -76,7 +81,10 @@ const LoginPage = () => {
                 </p>
               </div>
               <div className=" ml-5 lg:relative lg:right-0 lg:left-0 lg:top-0">
-                <Slider {...settings} className="lg:mt-2 w-52 h-64 lg:w-72 overflow-hidden">
+                <Slider
+                  {...settings}
+                  className="lg:mt-2 w-52 h-64 lg:w-72 overflow-hidden"
+                >
                   <img
                     src={captenAmerica}
                     alt="icon capten america"
@@ -141,26 +149,32 @@ const LoginPage = () => {
                     </p>
                   </label>
                 </div>
-
-                <div className="p-4 shadow-lg shadow-slate-700 rounded-xl mb-9 hover:bg-cyan-500 hover:bg-opacity-20 hover:border">
-                  <label htmlFor="password">
+                <div className="p-4 relative shadow-lg shadow-slate-700 rounded-xl mb-9 hover:bg-cyan-500 hover:bg-opacity-20 hover:border">
+                  <label htmlFor="password" className="relative">
                     <span
                       className="text-white block font-semibold mb-2
-                                        after:content-['*']
-                                        after:ml-1
-                                        after:text-pink-500"
+                    after:content-['*']
+                    after:ml-1
+                    after:text-pink-500"
                     >
                       Password
                     </span>
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       className="py-2 lg:py-[10px] px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
-                                    focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
+                focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
                       required
                     />
+                    <button
+                      type="button"
+                      className="absolute top-2 right-3 text-slate-300"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </button>
                   </label>
                 </div>
                 <div className="flex flex-col items-center mt-6">
