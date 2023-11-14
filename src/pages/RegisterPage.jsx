@@ -37,6 +37,7 @@ const RegisterPage = () => {
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -90,6 +91,12 @@ const RegisterPage = () => {
     }
 
     dispatch(register(email, name, password, navigate));
+  };
+
+  //animasi loading setelah button submit diklik
+  const handleClick = () => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 2000);
   };
 
   // animasi slide icon superhero
@@ -295,10 +302,11 @@ const RegisterPage = () => {
 
               <div className="flex flex-col items-center mt-2">
                 <button
+                  onClick={handleClick}
                   type="submit"
                   className="lg:w-40 text-white bg-red-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center-800"
                 >
-                  Create an account
+                  {isLoading ? "Loading..." : "Create an account"}
                 </button>
                 <p className="mt-2 text-gray-500 text-sm">
                   Already have an account? &nbsp;
