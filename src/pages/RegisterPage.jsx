@@ -15,6 +15,7 @@ import hulk from "../assets/hulk.png";
 import flash from "../assets/flash.png";
 import ironMan from "../assets/ironMan.png";
 import PropTypes from "prop-types";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SampleNextArrow(props) {
   const { style } = props;
@@ -34,6 +35,8 @@ const RegisterPage = () => {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [passworderror, setPasswordError] = useState("");
   const [name, setName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -69,6 +72,14 @@ const RegisterPage = () => {
   const handleConfirmPasswordMatch = (event) => {
     setConfirmPassword(event.target.value);
     passwordValidation(password, event.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const regis = async (event) => {
@@ -147,7 +158,7 @@ const RegisterPage = () => {
                   <input
                     type="text"
                     id="FirstName"
-                    placeholder="nama depan..."
+                    placeholder="first name..."
                     className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
                                       focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\
                                       invalid:text-pink-700
@@ -173,7 +184,7 @@ const RegisterPage = () => {
                   <input
                     type="text"
                     id="LastName"
-                    placeholder="nama belakang..."
+                    placeholder="last name..."
                     className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
                   focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\
                   invalid:text-pink-700
@@ -201,7 +212,7 @@ const RegisterPage = () => {
                     <input
                       type="email"
                       id="email"
-                      placeholder="masukkan email..."
+                      placeholder="email..."
                       className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
                                       focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\
                                       invalid:text-pink-700
@@ -218,26 +229,30 @@ const RegisterPage = () => {
                 </label>
               </div>
 
-              <div className="shadow-lg shadow-slate-700 rounded-xl p-4 hover:bg-cyan-500 hover:bg-opacity-20 hover:border">
+              <div className="shadow-lg shadow-slate-700 rounded-xl p-4 hover:bg-cyan-500 hover:bg-opacity-20 hover:border relative">
                 <label htmlFor="password">
-                  <span
-                    className="block font-semibold mb-2 text-white
-                                          after:content-['*']
-                                          after:ml-1
-                                          after:text-pink-500"
-                  >
+                  <span className="block font-semibold mb-2 text-white after:content-['*'] after:ml-1 after:text-pink-500">
                     Password
                   </span>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="masukkan password..."
-                    className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
-                                      focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
-                    value={password}
-                    onChange={handlePasswordMatch}
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      placeholder="password..."
+                      className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
+                      focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
+                      value={password}
+                      onChange={handlePasswordMatch}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 px-2 py-1.5 mt-1.5"
+                    >
+                      {showPassword ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                  </div>
                 </label>
               </div>
 
@@ -251,16 +266,25 @@ const RegisterPage = () => {
                   >
                     Confirm Password
                   </span>
-                  <input
-                    type="password"
-                    id="confirmpassword"
-                    placeholder="masukkan password kembali..."
-                    className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
+                  <div className="relative">
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmpassword"
+                      placeholder="confirm the password..."
+                      className="py-2 px-2 border border-slate-300 rounded-xl w-full text-sm placeholder:text-slate-400
                                       focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500\"
-                    value={confirmpassword}
-                    onChange={handleConfirmPasswordMatch}
-                    required
-                  />
+                      value={confirmpassword}
+                      onChange={handleConfirmPasswordMatch}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={toggleConfirmPasswordVisibility}
+                      className="absolute inset-y-0 right-0 px-2 py-1.5 mt-1.5"
+                    >
+                      {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                  </div>
                 </label>
                 {passworderror && (
                   <p className="mt-3 px-2 text-sm text-red-500 ">
