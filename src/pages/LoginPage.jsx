@@ -145,7 +145,7 @@ const LoginPage = () => {
                       onChange={(event) => setEmail(event.target.value)}
                     />
                     <p className="text-sm m-1 font-medium text-pink-600 invisible peer-invalid:visible">
-                      email tidak valid
+                      email not valid
                     </p>
                   </label>
                 </div>
